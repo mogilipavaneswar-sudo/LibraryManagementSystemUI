@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="header__left">
+          <button class="icon-btn header__menuBtn" id="menuBtn" type="button" aria-label="Toggle menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="header__center">
+          <h1 class="header__title">Library Management System</h1>
+          <u><p class="header__subtitle">RVR &amp; JC College of Engineering</p></u>
+
+        <div class="header__right">
+          <div class="user-pill" id="userPill" hidden>
+            <span class="user-pill__dot" aria-hidden="true"></span>
+            <span class="user-pill__name" id="userName">User</span>
+            <span class="user-pill__role" id="userRole">Student</span>
+          </div>
+          <button class="btn btn--primary" id="authBtn" type="button">
+            <span class="btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path
+                  d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-7.5 9a7.5 7.5 0 0 1 15 0"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+            <span class="btn__label" id="authBtnLabel">Login / Registration</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+          <nav class="nav">
+            <a class="nav__item" href="#" data-nav="home">
+              <span class="nav__label">Home</span>
+            </a>
+            <a class="nav__item is-active" href="#" data-nav="dashboard">
+              <span class="nav__label">Dashboard</span>
+            </a>
+            <a class="nav__item" href="#" data-nav="books">
+              <span class="nav__label">Books</span>
+            </a>
+            <a class="nav__item" href="#" data-nav="issue">
+              <span class="nav__label">Issue Book</span>
+            </a>
+            <a class="nav__item" href="#" data-nav="return">
+              <span class="nav__label">Return Book</span>
+            </a>
+            <a class="nav__item" href="#" data-nav="admin" id="navAdmin" hidden>
+              <span class="nav__label">Admin Section</span>
+            </a>
+            <div class="nav__divider" role="separator" aria-hidden="true"></div>
+            <a class="nav__item nav__item--danger" href="#" data-nav="logout">
+              <span class="nav__label">Logout</span>
+            </a>
+          </nav>
+        </aside>
+
+        <div class="sidebar-backdrop" id="sidebarBackdrop" hidden aria-hidden="true"></div>
+
+        <main class="content" aria-label="Main content">
+          <section class="view" id="view-dashboard" aria-label="Dashboard view">
+            <div class="content__head">
+              <div>
+                <h2 class="content__title">Dashboard</h2>
+                <p class="content__subtitle" id="dashboardSubtitle">Your library overview at a glance.</p>
+              </div>
+            </div>
+
+            <div class="stats" id="statsGrid" aria-label="Statistics grid"></div>
+
+            <section class="btech" aria-label="B.Tech departments">
+              <h3 class="btech__title">RVR &amp; JC College of Engineering</h3>
+              <p class="btech__subtitle">B.Tech branches in this college (including CSD).</p>
+              <div class="btech__list">
+                <span class="chip">CSE (Computer Science &amp; Engineering)</span>
+                <span class="chip">CSE (AI &amp; ML)</span>
+                <span class="chip">CSD (Computer Science &amp; Design)</span>
+                <span class="chip">IT (Information Technology)</span>
+                <span class="chip">ECE (Electronics &amp; Communication)</span>
+                <span class="chip">EEE (Electrical &amp; Electronics)</span>
+                <span class="chip">Mechanical Engineering</span>
+                <span class="chip">Civil Engineering</span>
+              </div>
+            </section>
+          </section>
+
+          <section class="view is-hidden" id="view-csd" aria-label="CSD syllabus and books view">
+            <div class="content__head">
+              <div>
+                <h2 class="content__title">CSD Syllabus &amp; Books</h2>
+                <p class="content__subtitle">Complete course structure and reference books for CSD.</p>
+              </div>
+              <button class="btn btn--ghost" type="button" id="csdPrintBtn">Print</button>
+            </div>
+
+            <section class="csd" aria-label="CSD course structure">
+              <h3 class="csd__title">CSD Course Structure</h3>
+              <p class="csd__subtitle">Semester-wise subjects for B.Tech CSD.</p>
+              <div class="csd__grid">
+                <figure class="csd__card">
+                  <img class="csd__img" src="./assets/csd-sem1.png" alt="CSD I Year - I Semester subjects" loading="lazy" />
+                  <figcaption class="csd__caption">I Year – I Semester</figcaption>
+                </figure>
+                <figure class="csd__card">
+                  <img class="csd__img" src="./assets/csd-sem2.png" alt="CSD I Year - II Semester subjects" loading="lazy" />
+                  <figcaption class="csd__caption">I Year – II Semester</figcaption>
+                </figure>
+                <figure class="csd__card">
+                  <img class="csd__img" src="./assets/csd-sem3.png" alt="CSD II Year - I Semester subjects" loading="lazy" />
+                  <figcaption class="csd__caption">II Year – I Semester</figcaption>
+                </figure>
+                <figure class="csd__card">
+                  <img class="csd__img" src="./assets/csd-sem4.png" alt="CSD II Year - II Semester subjects" loading="lazy" />
+                  <figcaption class="csd__caption">II Year – II Semester</figcaption>
+                </figure>
+                <figure class="csd__card">
+                  <img class="csd__img" src="./assets/csd-sem5.png" alt="CSD III Year - I Semester subjects" loading="lazy" />
+                  <figcaption class="csd__caption">III Year – I Semester</figcaption>
+                </figure>
+                <figure class="csd__card">
+                  <img class="csd__img" src="./assets/csd-sem6.png" alt="CSD III Year - II Semester subjects" loading="lazy" />
+                  <figcaption class="csd__caption">III Year – II Semester</figcaption>
+                </figure>
+                <figure class="csd__card">
+                  <img class="csd__img" src="./assets/csd-sem7.png" alt="CSD IV Year subjects" loading="lazy" />
+                  <figcaption class="csd__caption">IV Year</figcaption>
+                </figure>
+              </div>
+            </section>
+
+            <section class="csd-books" aria-label="CSD reference books">
+              <div class="csd-books__head">
+                <div>
+                  <h3 class="csd-books__title">CSD Reference Books</h3>
+                  <p class="csd-books__subtitle">Structured book list for core Computer Science &amp; Design subjects.</p>
+                </div>
+                <div class="csd-books__search" role="search">
+                  <div class="csd-books__searchIcon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path
+                        d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm6.1-1.4 4.2 4.2"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    class="csd-books__searchInput"
+                    id="csdBooksSearchInput"
+                    type="search"
+                    placeholder="Search subjects or books..."
+                    autocomplete="off"
+                    spellcheck="false"
+                  />
+                </div>
+              </div>
+
+              <p class="csd-books__empty" id="csdBooksEmpty" hidden>No subjects match your search.</p>
+
+              <div class="csd-books__grid" id="csdBooksGrid">
+                <article class="csd-books__card" data-subject="Mathematics I II III">
+                  <h4 class="csd-books__course">Mathematics (I / II / III)</h4>
+                  <p class="csd-books__item"><strong>Higher Engineering Mathematics</strong> – B.S. Grewal, Khanna Publishers</p>
+                  <p class="csd-books__item"><strong>Advanced Engineering Mathematics</strong> – Erwin Kreyszig, Wiley</p>
+                  <p class="csd-books__item"><strong>Engineering Mathematics</strong> – B.V. Ramana, McGraw‑Hill</p>
+                  <p class="csd-books__item"><strong>Engineering Mathematics – Vol. I–III</strong> – H.K. Dass, S. Chand</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Engineering Physics">
+                  <h4 class="csd-books__course">Engineering Physics</h4>
+                  <p class="csd-books__item"><strong>Engineering Physics</strong> – M.N. Avadhanulu &amp; P.G. Kshirsagar</p>
+                  <p class="csd-books__item"><strong>Engineering Physics</strong> – R.K. Gaur &amp; S.L. Gupta</p>
+                  <p class="csd-books__item"><strong>Concepts of Modern Physics</strong> – Arthur Beiser, McGraw‑Hill</p>
+                  <p class="csd-books__item"><strong>Applied Physics for Engineers</strong> – P.K. Palanisamy</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Engineering Chemistry">
+                  <h4 class="csd-books__course">Engineering Chemistry</h4>
+                  <p class="csd-books__item"><strong>Engineering Chemistry</strong> – Jain &amp; Jain</p>
+                  <p class="csd-books__item"><strong>A Textbook of Engineering Chemistry</strong> – Shashi Chawla</p>
+                  <p class="csd-books__item"><strong>Engineering Chemistry</strong> – P.C. Jain &amp; M. Jain</p>
+                  <p class="csd-books__item"><strong>Applied Chemistry</strong> – O.G. Palanna</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Programming in C">
+                  <h4 class="csd-books__course">Programming in C</h4>
+                  <p class="csd-books__item"><strong>Programming in ANSI C</strong> – E. Balagurusamy</p>
+                  <p class="csd-books__item"><strong>Let Us C</strong> – Yashavant Kanetkar</p>
+                  <p class="csd-books__item"><strong>The C Programming Language</strong> – Brian W. Kernighan &amp; Dennis M. Ritchie</p>
+                  <p class="csd-books__item"><strong>Head First C</strong> – David Griffiths &amp; Dawn Griffiths</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Object Oriented Programming Java C++">
+                  <h4 class="csd-books__course">Object Oriented Programming (Java / C++)</h4>
+                  <p class="csd-books__item"><strong>Object Oriented Programming with C++</strong> – E. Balagurusamy</p>
+                  <p class="csd-books__item"><strong>C++ Primer</strong> – Lippman, Lajoie &amp; Moo</p>
+                  <p class="csd-books__item"><strong>Head First Java</strong> – Kathy Sierra &amp; Bert Bates</p>
+                  <p class="csd-books__item"><strong>Core Java Volume I</strong> – Cay S. Horstmann</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Data Structures">
+                  <h4 class="csd-books__course">Data Structures</h4>
+                  <p class="csd-books__item"><strong>Data Structures Using C</strong> – Reema Thareja</p>
+                  <p class="csd-books__item"><strong>Data Structures and Algorithms in C</strong> – Mark A. Weiss</p>
+                  <p class="csd-books__item"><strong>Data Structures: A Pseudocode Approach</strong> – Richard F. Gilberg &amp; Behrouz Forouzan</p>
+                  <p class="csd-books__item"><strong>Data Structures and Abstractions with Java</strong> – Frank M. Carrano</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Algorithms">
+                  <h4 class="csd-books__course">Algorithms</h4>
+                  <p class="csd-books__item"><strong>Introduction to Algorithms</strong> – Cormen, Leiserson, Rivest &amp; Stein</p>
+                  <p class="csd-books__item"><strong>Algorithms</strong> – Robert Sedgewick &amp; Kevin Wayne</p>
+                  <p class="csd-books__item"><strong>Algorithm Design</strong> – Jon Kleinberg &amp; Éva Tardos</p>
+                  <p class="csd-books__item"><strong>The Algorithm Design Manual</strong> – Steven Skiena</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Database Management Systems DBMS">
+                  <h4 class="csd-books__course">Database Management Systems</h4>
+                  <p class="csd-books__item"><strong>Database System Concepts</strong> – Korth, Sudarshan</p>
+                  <p class="csd-books__item"><strong>Fundamentals of Database Systems</strong> – Elmasri &amp; Navathe</p>
+                  <p class="csd-books__item"><strong>Database Management Systems</strong> – Ramakrishnan &amp; Gehrke</p>
+                  <p class="csd-books__item"><strong>SQL Cookbook</strong> – Anthony Molinaro</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Operating Systems">
+                  <h4 class="csd-books__course">Operating Systems</h4>
+                  <p class="csd-books__item"><strong>Operating System Concepts</strong> – Silberschatz, Galvin &amp; Gagne</p>
+                  <p class="csd-books__item"><strong>Modern Operating Systems</strong> – Andrew S. Tanenbaum</p>
+                  <p class="csd-books__item"><strong>Operating Systems: Three Easy Pieces</strong> – Remzi &amp; Andrea Arpaci‑Dusseau</p>
+                  <p class="csd-books__item"><strong>Operating Systems</strong> – William Stallings</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Computer Networks">
+                  <h4 class="csd-books__course">Computer Networks</h4>
+                  <p class="csd-books__item"><strong>Computer Networking: A Top‑Down Approach</strong> – Kurose &amp; Ross</p>
+                  <p class="csd-books__item"><strong>Data Communications and Networking</strong> – Behrouz A. Forouzan</p>
+                  <p class="csd-books__item"><strong>Computer Networks</strong> – Andrew S. Tanenbaum</p>
+                  <p class="csd-books__item"><strong>TCP/IP Illustrated, Vol. 1</strong> – W. Richard Stevens</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Software Engineering">
+                  <h4 class="csd-books__course">Software Engineering</h4>
+                  <p class="csd-books__item"><strong>Software Engineering: A Practitioner’s Approach</strong> – Roger S. Pressman</p>
+                  <p class="csd-books__item"><strong>Fundamentals of Software Engineering</strong> – Rajib Mall</p>
+                  <p class="csd-books__item"><strong>Software Engineering</strong> – Ian Sommerville</p>
+                  <p class="csd-books__item"><strong>Clean Architecture</strong> – Robert C. Martin</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Artificial Intelligence AI">
+                  <h4 class="csd-books__course">Artificial Intelligence</h4>
+                  <p class="csd-books__item"><strong>Artificial Intelligence: A Modern Approach</strong> – Russell &amp; Norvig</p>
+                  <p class="csd-books__item"><strong>Artificial Intelligence</strong> – Elaine Rich &amp; Kevin Knight</p>
+                  <p class="csd-books__item"><strong>Artificial Intelligence</strong> – Saroj Kaushik</p>
+                  <p class="csd-books__item"><strong>Pattern Recognition and Machine Learning</strong> – Christopher M. Bishop</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Machine Learning">
+                  <h4 class="csd-books__course">Machine Learning</h4>
+                  <p class="csd-books__item"><strong>Introduction to Machine Learning</strong> – Ethem Alpaydin</p>
+                  <p class="csd-books__item"><strong>Pattern Recognition and Machine Learning</strong> – Christopher M. Bishop</p>
+                  <p class="csd-books__item"><strong>Machine Learning</strong> – Tom M. Mitchell</p>
+                  <p class="csd-books__item"><strong>Hands‑On Machine Learning with Scikit‑Learn &amp; TensorFlow</strong> – Aurélien Géron</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Cyber Security">
+                  <h4 class="csd-books__course">Cyber Security</h4>
+                  <p class="csd-books__item"><strong>Computer Security: Principles and Practice</strong> – William Stallings</p>
+                  <p class="csd-books__item"><strong>Network Security Essentials</strong> – William Stallings</p>
+                  <p class="csd-books__item"><strong>Cyber Security Essentials</strong> – Charles J. Brooks et al.</p>
+                  <p class="csd-books__item"><strong>The Web Application Hacker’s Handbook</strong> – Dafydd Stuttard &amp; Marcus Pinto</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Web Technologies Web Development">
+                  <h4 class="csd-books__course">Web Technologies</h4>
+                  <p class="csd-books__item"><strong>Internet &amp; World Wide Web: How to Program</strong> – Deitel &amp; Deitel</p>
+                  <p class="csd-books__item"><strong>Web Technologies</strong> – Uttam K. Roy</p>
+                  <p class="csd-books__item"><strong>Learning Web Design</strong> – Jennifer Niederst Robbins</p>
+                  <p class="csd-books__item"><strong>Eloquent JavaScript</strong> – Marijn Haverbeke</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Cloud Computing">
+                  <h4 class="csd-books__course">Cloud Computing</h4>
+                  <p class="csd-books__item"><strong>Cloud Computing: Principles and Paradigms</strong> – Rajkumar Buyya et al.</p>
+                  <p class="csd-books__item"><strong>Cloud Computing: Concepts, Technology &amp; Architecture</strong> – Thomas Erl</p>
+                  <p class="csd-books__item"><strong>Cloud Computing</strong> – Kumar Saurabh</p>
+                  <p class="csd-books__item"><strong>Architecting Cloud Computing Solutions</strong> – Kevin L. Jackson</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="DevOps">
+                  <h4 class="csd-books__course">DevOps</h4>
+                  <p class="csd-books__item"><strong>The DevOps Handbook</strong> – Gene Kim et al.</p>
+                  <p class="csd-books__item"><strong>The Phoenix Project</strong> – Gene Kim et al.</p>
+                  <p class="csd-books__item"><strong>Continuous Delivery</strong> – Jez Humble &amp; David Farley</p>
+                  <p class="csd-books__item"><strong>Site Reliability Engineering</strong> – Betsy Beyer et al.</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="UI UX Design Human Computer Interaction">
+                  <h4 class="csd-books__course">UI / UX Design &amp; HCI</h4>
+                  <p class="csd-books__item"><strong>Don’t Make Me Think</strong> – Steve Krug</p>
+                  <p class="csd-books__item"><strong>The Design of Everyday Things</strong> – Don Norman</p>
+                  <p class="csd-books__item"><strong>About Face: The Essentials of Interaction Design</strong> – Alan Cooper et al.</p>
+                  <p class="csd-books__item"><strong>Human–Computer Interaction</strong> – Alan Dix et al.</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Computer Graphics">
+                  <h4 class="csd-books__course">Computer Graphics</h4>
+                  <p class="csd-books__item"><strong>Computer Graphics</strong> – Donald Hearn &amp; M. Pauline Baker</p>
+                  <p class="csd-books__item"><strong>Computer Graphics with OpenGL</strong> – Hearn, Baker &amp; Carithers</p>
+                  <p class="csd-books__item"><strong>Fundamentals of Computer Graphics</strong> – Peter Shirley et al.</p>
+                  <p class="csd-books__item"><strong>Interactive Computer Graphics</strong> – Edward Angel</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Compiler Design">
+                  <h4 class="csd-books__course">Compiler Design</h4>
+                  <p class="csd-books__item"><strong>Compilers: Principles, Techniques &amp; Tools</strong> – Aho, Lam, Sethi &amp; Ullman</p>
+                  <p class="csd-books__item"><strong>Compiler Design</strong> – Alfred V. Aho &amp; Monica S. Lam</p>
+                  <p class="csd-books__item"><strong>Modern Compiler Implementation</strong> – Andrew W. Appel</p>
+                  <p class="csd-books__item"><strong>Engineering a Compiler</strong> – Cooper &amp; Torczon</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Distributed Systems">
+                  <h4 class="csd-books__course">Distributed Systems</h4>
+                  <p class="csd-books__item"><strong>Distributed Systems: Concepts and Design</strong> – Coulouris, Dollimore &amp; Kindberg</p>
+                  <p class="csd-books__item"><strong>Distributed Systems</strong> – Andrew S. Tanenbaum &amp; Maarten van Steen</p>
+                  <p class="csd-books__item"><strong>Designing Data‑Intensive Applications</strong> – Martin Kleppmann</p>
+                  <p class="csd-books__item"><strong>Distributed Systems</strong> – Sukumar Ghosh</p>
+                </article>
+
+                <article class="csd-books__card" data-subject="Big Data Analytics">
+                  <h4 class="csd-books__course">Big Data Analytics</h4>
+                  <p class="csd-books__item"><strong>Big Data: Principles and Paradigms</strong> – Rajkumar Buyya et al.</p>
+                  <p class="csd-books__item"><strong>Data Mining: Concepts and Techniques</strong> – Jiawei Han, Micheline Kamber</p>
+                  <p class="csd-books__item"><strong>Hadoop: The Definitive Guide</strong> – Tom White</p>
+                  <p class="csd-books__item"><strong>Big Data Analytics</strong> – Seema Acharya &amp; Subhasini Chellappan</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="csd-books-sem" aria-label="Semester-wise CSD books">
+              <h3 class="csd-books-sem__title">Semester-wise Books</h3>
+              <p class="csd-books-sem__subtitle">Key recommended books for each semester.</p>
+              <div class="csd-books-sem__grid">
+                <article class="csd-books-sem__card">
+                  <h4 class="csd-books-sem__sem">I Year – I Semester</h4>
+                  <ul class="csd-books-sem__list">
+                    <li class="csd-books-sem__item"><strong>Mathematics – I</strong>: B.S. Grewal – Higher Engineering Mathematics</li>
+                    <li class="csd-books-sem__item"><strong>Engineering Chemistry</strong>: Jain &amp; Jain – Engineering Chemistry</li>
+                    <li class="csd-books-sem__item"><strong>English for Communication Skills</strong>: Local prescribed textbook</li>
+                    <li class="csd-books-sem__item"><strong>Fundamentals of Computer Science</strong>: Reema Thareja – Computer Fundamentals</li>
+                  </ul>
+                </article>
+                <article class="csd-books-sem__card">
+                  <h4 class="csd-books-sem__sem">I Year – II Semester</h4>
+                  <ul class="csd-books-sem__list">
+                    <li class="csd-books-sem__item"><strong>Probability and Statistics</strong>: T. Veerarajan – Probability, Statistics and Random Processes</li>
+                    <li class="csd-books-sem__item"><strong>Engineering Physics</strong>: M.N. Avadhanulu – Engineering Physics</li>
+                    <li class="csd-books-sem__item"><strong>Digital Electronics</strong>: Morris Mano – Digital Design</li>
+                    <li class="csd-books-sem__item"><strong>Data Structures &amp; Algorithms</strong>: Reema Thareja – Data Structures Using C</li>
+                  </ul>
+                </article>
+                <article class="csd-books-sem__card">
+                  <h4 class="csd-books-sem__sem">II Year – I Semester</h4>
+                  <ul class="csd-books-sem__list">
+                    <li class="csd-books-sem__item"><strong>Mathematics – II</strong>: B.S. Grewal – Higher Engineering Mathematics</li>
+                    <li class="csd-books-sem__item"><strong>Discrete Mathematics</strong>: Keneth Rosen – Discrete Mathematics</li>
+                    <li class="csd-books-sem__item"><strong>Computer Organization</strong>: Carl Hamacher – Computer Organization</li>
+                    <li class="csd-books-sem__item"><strong>Object Oriented Programming</strong>: E. Balagurusamy – OOP with C++</li>
+                  </ul>
+                </article>
+                <article class="csd-books-sem__card">
+                  <h4 class="csd-books-sem__sem">II Year – II Semester</h4>
+                  <ul class="csd-books-sem__list">
+                    <li class="csd-books-sem__item"><strong>Foundations of AI</strong>: Russell &amp; Norvig – Artificial Intelligence: A Modern Approach</li>
+                    <li class="csd-books-sem__item"><strong>DBMS</strong>: Korth &amp; Sudarshan – Database System Concepts</li>
+                    <li class="csd-books-sem__item"><strong>Operating Systems</strong>: Silberschatz – Operating System Concepts</li>
+                    <li class="csd-books-sem__item"><strong>Design &amp; Analysis of Algorithms</strong>: Cormen et al. – Introduction to Algorithms</li>
+                  </ul>
+                </article>
+                <article class="csd-books-sem__card">
+                  <h4 class="csd-books-sem__sem">III Year – I Semester</h4>
+                  <ul class="csd-books-sem__list">
+                    <li class="csd-books-sem__item"><strong>Automata &amp; Compiler Design</strong>: Hopcroft et al. – Introduction to Automata Theory</li>
+                    <li class="csd-books-sem__item"><strong>Data Communications &amp; Networking</strong>: Behrouz Forouzan – Data Communications and Networking</li>
+                    <li class="csd-books-sem__item"><strong>Machine Learning</strong>: Ethem Alpaydin – Introduction to Machine Learning</li>
+                  </ul>
+                </article>
+                <article class="csd-books-sem__card">
+                  <h4 class="csd-books-sem__sem">III Year – II Semester</h4>
+                  <ul class="csd-books-sem__list">
+                    <li class="csd-books-sem__item"><strong>Operations Research</strong>: H.A. Taha – Operations Research</li>
+                    <li class="csd-books-sem__item"><strong>Cryptography &amp; Network Security</strong>: William Stallings – Cryptography and Network Security</li>
+                    <li class="csd-books-sem__item"><strong>Deep Learning</strong>: Ian Goodfellow – Deep Learning</li>
+                  </ul>
+                </article>
+                <article class="csd-books-sem__card">
+                  <h4 class="csd-books-sem__sem">IV Year</h4>
+                  <ul class="csd-books-sem__list">
+                    <li class="csd-books-sem__item"><strong>Electives / MOOCs</strong>: As per chosen specialization</li>
+                    <li class="csd-books-sem__item"><strong>Internship / Project</strong>: Research papers, documentation standards</li>
+                    <li class="csd-books-sem__item"><strong>Skill Oriented Courses</strong>: Online resources (Coursera, NPTEL, etc.)</li>
+                  </ul>
+                </article>
+              </div>
+            </section>
+          </section>
+
+          <section class="view is-hidden" id="view-books" aria-label="Books view">
+            <div class="content__head">
+              <div>
+                <h2 class="content__title">Books Section</h2>
+                <p class="content__subtitle" id="resultsMeta">Browse, search, and issue available books.</p>
+              </div>
+            </div>
+
+            <div class="section-tools">
+              <div class="search search--section" role="search">
+                <div class="search__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false">
+                    <path
+                      d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Zm6.1-1.4 4.2 4.2"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+                <input
+                  class="search__input"
+                  id="searchInput"
+                  type="search"
+                  placeholder="Search books by title or author..."
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+              </div>
+              <div class="filter-wrap" role="group" aria-label="Book filter">
+                <label class="filter-label" for="booksFilter">Show</label>
+                <select class="filter-select" id="booksFilter" aria-label="Filter books">
+                  <option value="all">All books</option>
+                  <option value="issued_only">Issued only</option>
+                </select>
+              </div>
+            </div>
+
+            <section class="grid" id="booksGrid" aria-label="Books grid"></section>
+
+            <div class="scroll-buttons" id="scrollButtons" aria-label="Scroll to top or bottom" hidden>
+              <button type="button" class="scroll-btn scroll-btn--up" id="scrollToTopBtn" aria-label="Scroll to top">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 19V5M5 12l7-7 7 7"/></svg>
+              </button>
+              <button type="button" class="scroll-btn scroll-btn--down" id="scrollToBottomBtn" aria-label="Scroll to bottom">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12l7 7 7-7"/></svg>
+              </button>
+            </div>
+          </section>
+
+          <section class="view is-hidden" id="view-issue" aria-label="Issue book view">
+            <div class="content__head">
+              <div>
+                <h2 class="content__title">Issued Books</h2>
+                <p class="content__subtitle" id="issueMeta">Books currently issued.</p>
+              </div>
+            </div>
+
+            <div class="list" id="issuedList" aria-label="Issued books list"></div>
+          </section>
+
+          <section class="view is-hidden" id="view-return" aria-label="Return book view">
+            <div class="content__head">
+              <div>
+                <h2 class="content__title">Return Books</h2>
+                <p class="content__subtitle" id="returnMeta">Return books you have issued and see any fines.</p>
+              </div>
+            </div>
+
+            <div class="list" id="returnList" aria-label="Returnable books list"></div>
+          </section>
+
+          <section class="view is-hidden" id="view-admin" aria-label="Admin view">
+            <div class="content__head">
+              <div>
+                <h2 class="content__title">Admin Section</h2>
+                <p class="content__subtitle">Manage students, books, and view fines (offline).</p>
+              </div>
+            </div>
+
+            <div class="admin">
+              <div class="admin__grid">
+                <div class="admin__panel">
+                  <h3 class="admin__title">Add Book</h3>
+                  <form class="form" id="addBookForm" autocomplete="off">
+                    <div class="field">
+                      <label class="label" for="bookTitle">Book Title</label>
+                      <input class="input" id="bookTitle" type="text" required placeholder="Enter title" />
+                    </div>
+                    <div class="field">
+                      <label class="label" for="bookAuthor">Author</label>
+                      <input class="input" id="bookAuthor" type="text" required placeholder="Enter author name" />
+                    </div>
+                    <p class="form__error" id="addBookError" hidden></p>
+                    <button class="btn btn--primary btn--block" type="submit">Add Book</button>
+                  </form>
+                </div>
+
+                <div class="admin__panel">
+                  <h3 class="admin__title">Books</h3>
+                  <p class="content__subtitle" style="margin: 0 0 10px">Remove is disabled for issued books.</p>
+                  <div class="list" id="adminBooksList" aria-label="Admin books list"></div>
+                </div>
+
+                <div class="admin__panel">
+                  <h3 class="admin__title">Students</h3>
+                  <div class="list" id="studentsList" aria-label="Students list"></div>
+                </div>
+              </div>
+
+              <div class="admin__panel">
+                <h3 class="admin__title">Issued / Overdue / Fines</h3>
+                <div class="list" id="adminIssuedList" aria-label="Admin issued list"></div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="overlay" id="authOverlay" hidden>
+      <div class="auth" role="dialog" aria-modal="true" aria-label="Authentication">
+        <div class="auth__head">
+          <div>
+            <h2 class="auth__title">Welcome</h2>
+            <p class="auth__subtitle">Login or create a student account (offline).</p>
+          </div>
+          <button class="icon-btn" id="authCloseBtn" type="button" aria-label="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M6 6l12 12M18 6 6 18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="Auth tabs">
+          <button class="tab is-active" id="tab-student" type="button" role="tab" aria-selected="true">
+            Student
+          </button>
+          <button class="tab" id="tab-admin" type="button" role="tab" aria-selected="false">
+            Admin
+          </button>
+        </div>
+
+        <div class="auth__body">
+          <div class="pane" id="pane-student">
+            <div class="subtabs" role="tablist" aria-label="Student auth">
+              <button class="subtab is-active" id="subtab-login" type="button" role="tab" aria-selected="true">
+                Login
+              </button>
+              <button class="subtab" id="subtab-register" type="button" role="tab" aria-selected="false">
+                Register
+              </button>
+            </div>
+
+            <form class="form" id="studentLoginForm" autocomplete="off">
+              <div class="field">
+                <label class="label" for="studentLoginEmail">Email</label>
+                <input class="input" id="studentLoginEmail" type="email" required placeholder="you@example.com" />
+              </div>
+              <div class="field">
+                <label class="label" for="studentLoginPassword">Password</label>
+                <input class="input" id="studentLoginPassword" type="password" required placeholder="Your password" />
+              </div>
+              <p class="form__error" id="studentLoginError" hidden></p>
+              <button class="btn btn--primary btn--block" type="submit">Login</button>
+            </form>
+
+            <form class="form is-hidden" id="studentRegisterForm" autocomplete="off">
+              <div class="field">
+                <label class="label" for="studentName">Full Name</label>
+                <input class="input" id="studentName" type="text" required placeholder="Your name" />
+              </div>
+              <div class="field">
+                <label class="label" for="studentRegNo">Registration Number</label>
+                <input class="input" id="studentRegNo" type="text" required placeholder="Your registration number" />
+              </div>
+              <div class="field">
+                <label class="label" for="studentEmail">Email</label>
+                <input class="input" id="studentEmail" type="email" required placeholder="you@example.com" />
+              </div>
+              <div class="field">
+                <label class="label" for="studentPassword">Password</label>
+                <input class="input" id="studentPassword" type="password" required placeholder="Create a password" />
+              </div>
+              <div class="field">
+                <label class="label" for="studentPassword2">Confirm Password</label>
+                <input class="input" id="studentPassword2" type="password" required placeholder="Re-enter password" />
+              </div>
+              <p class="form__error" id="studentRegisterError" hidden></p>
+              <button class="btn btn--primary btn--block" type="submit">Create Account</button>
+            </form>
+          </div>
+
+          <div class="pane is-hidden" id="pane-admin">
+            <div class="hint">
+              <div class="hint__title">Default Admin</div>
+              <div class="hint__text">Username: <b>admin</b> · Password: <b>admin123</b></div>
+            </div>
+            <form class="form" id="adminLoginForm" autocomplete="off">
+              <div class="field">
+                <label class="label" for="adminUsername">Username</label>
+                <input class="input" id="adminUsername" type="text" required placeholder="admin" />
+              </div>
+              <div class="field">
+                <label class="label" for="adminPassword">Password</label>
+                <input class="input" id="adminPassword" type="password" required placeholder="admin123" />
+              </div>
+              <p class="form__error" id="adminLoginError" hidden></p>
+              <button class="btn btn--primary btn--block" type="submit">Login as Admin</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="modalOverlay" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Confirmation">
+        <div class="modal__head">
+          <div>
+            <h3 class="modal__title" id="modalTitle">Confirm</h3>
+            <p class="modal__subtitle" id="modalSubtitle"></p>
+          </div>
+          <button class="icon-btn" id="modalCloseBtn" type="button" aria-label="Close">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path
+                d="M6 6l12 12M18 6 6 18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="modal__body" id="modalBody"></div>
+        <div class="modal__actions">
+          <button class="btn btn--ghost" id="modalCancelBtn" type="button">Cancel</button>
+          <button class="btn btn--primary" id="modalConfirmBtn" type="button">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
