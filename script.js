@@ -106,11 +106,11 @@ function setSidebarOpen(next) {
 
 function escapeHtml(str) {
   return String(str)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function uid(prefix) {
@@ -657,7 +657,7 @@ function showBookDetails(bookId) {
 function initBookCardActions() {
   els.grid.addEventListener("click", (e) => {
     const card = e.target.closest(".card");
-    const id = card?.dataset?.id;
+    const id = card && card.dataset ? card.dataset.id : undefined;
     if (!id) return;
 
     const issueBtn = e.target.closest("[data-action='issue']");
@@ -942,7 +942,7 @@ function initAdmin() {
       const btn = e.target.closest("[data-action='remove-book']");
       if (!btn) return;
       const row = e.target.closest(".row");
-      const id = row?.dataset?.id;
+      const id = row && row.dataset ? row.dataset.id : undefined;
       if (!id) return;
 
       const user = getCurrentUser();
@@ -1243,7 +1243,7 @@ function initReturnActions() {
     const btn = e.target.closest("[data-action='return']");
     if (!btn) return;
     const row = e.target.closest(".row");
-    const id = row?.dataset?.id;
+    const id = row && row.dataset ? row.dataset.id : undefined;
     if (!id) return;
     returnBookFlow(id);
   });
